@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import {ContentModule} from "../content/ContentModule";
+import { ContentModule } from '../content/ContentModule';
 
 @Module({
   imports: [ContentModule],

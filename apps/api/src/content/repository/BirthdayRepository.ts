@@ -3,7 +3,7 @@ import {Injectable} from "@nestjs/common";
 import {CreateBirthdayCommand} from "../ContentFacade";
 import * as nanoid from "nanoid";
 
-const table = 'birthday';
+const COLLECTION_NAME = 'birthday';
 
 interface BirthdayTable {
   id: string;
@@ -18,13 +18,12 @@ interface BirthdayTable {
 export class BirthdayRepository extends AbstractRepository {
 
   async create({ name, date }: CreateBirthdayCommand): Promise<void> {
-    await this.knex.from<BirthdayTable>(table).insert({
-      id: nanoid.nanoid(),
+    await this.database.collection(COLLECTION_NAME).insertOne({
       name,
       date,
-      created_at: new Date(),
-      updated_at: new Date(),
-      deleted_at: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
     })
   }
 }

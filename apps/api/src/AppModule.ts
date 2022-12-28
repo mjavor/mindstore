@@ -1,24 +1,13 @@
-import {Module} from "@nestjs/common";
-import {ApiModule} from "./api";
-import {KnexModule} from "nestjs-knex";
-import {ConfigModule} from "./config/ConfigModule";
-import {ConfigFacade} from "./config/ConfigFacade";
+import { Module } from '@nestjs/common';
+import { ApiModule } from './api';
+import { KnexModule } from 'nestjs-knex';
+import { config } from './config/config';
+import {DatabaseModule} from "./common/database";
 
 @Module({
   imports: [
     ApiModule,
-    ConfigModule,
-    KnexModule.forRootAsync({
-      inject: [ConfigFacade],
-      imports: [ConfigModule],
-      useFactory: ({ config }: ConfigFacade) => ({
-        config: {
-          client: "sqlite3",
-          useNullAsDefault: true,
-          connection: config.database.dbUri,
-        },
-      }),
-    })
-  ]
+    DatabaseModule,
+  ],
 })
 export class AppModule {}

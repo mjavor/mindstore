@@ -1,0 +1,1 @@
+export { InjectDb, DatabaseModule } from './DatabaseModule';
